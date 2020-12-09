@@ -1,8 +1,6 @@
 package testing.steven.cathaytest.api
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.google.gson.Gson
@@ -11,7 +9,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.datamodel.PlantsDataModel
-import testing.steven.cathaytest.exceptions.NoNetwork
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.reflect.Type
