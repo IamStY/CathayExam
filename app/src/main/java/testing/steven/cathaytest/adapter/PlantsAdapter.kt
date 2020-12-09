@@ -14,14 +14,22 @@ import testing.steven.cathaytest.datamodel.PlantsDataModel
 import kotlin.collections.ArrayList
 
 
-class PlantsAdapter(var plants : ArrayList<PlantsDataModel>, val activity: AppCompatActivity? ) : RecyclerView.Adapter<CommonRecyclerViewHolder>() {
+/***********
+ * 植物列表
+ */
+class PlantsAdapter(var plants: ArrayList<PlantsDataModel>, val activity: AppCompatActivity?) :
+    RecyclerView.Adapter<CommonRecyclerViewHolder>() {
 
     var listPlants = ArrayList<PlantsDataModel>()
+
     init {
         this.listPlants.addAll(plants)
     }
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CommonRecyclerViewHolder {
-        return CommonRecyclerViewHolder(LayoutInflater.from(activity).inflate(R.layout.layout_common_adapter_item, p0, false))
+        return CommonRecyclerViewHolder(
+            LayoutInflater.from(activity).inflate(R.layout.layout_common_adapter_item, p0, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -34,21 +42,22 @@ class PlantsAdapter(var plants : ArrayList<PlantsDataModel>, val activity: AppCo
 
     override fun onBindViewHolder(_holder: CommonRecyclerViewHolder, position: Int) {
 
-        if(   _holder.restTime.visibility == View.VISIBLE)
-        _holder.restTime.visibility = View.GONE
+        if (_holder.restTime.visibility == View.VISIBLE)
+            _holder.restTime.visibility = View.GONE
 
-        if(   _holder.indicator.visibility == View.VISIBLE)
-        _holder.indicator.visibility = View.GONE
-        var centerDataModel =  listPlants[_holder.adapterPosition]
+        if (_holder.indicator.visibility == View.VISIBLE)
+            _holder.indicator.visibility = View.GONE
+        var centerDataModel = listPlants[_holder.adapterPosition]
 
         _holder.sdv_image.setImageURI(centerDataModel.imageUrl)
         _holder.title.text = centerDataModel.name
         _holder.longDescription.text = centerDataModel.alsoKnown
         _holder.root.setOnClickListener {
-            activity?.run{
+            activity?.run {
                 (supportFragmentManager.findFragmentByTag(PlantDetailFragment.getInstanceTag()) as PlantDetailFragment?)?.dismiss()
-                PlantDetailFragment() .apply {
-                    arguments = Bundle().apply { putSerializable(Statics.plantData,centerDataModel) }
+                PlantDetailFragment().apply {
+                    arguments =
+                        Bundle().apply { putSerializable(Statics.plantData, centerDataModel) }
                 }.show(activity.supportFragmentManager, PlantDetailFragment.getInstanceTag())
             }
         }
@@ -56,7 +65,7 @@ class PlantsAdapter(var plants : ArrayList<PlantsDataModel>, val activity: AppCo
 
     }
 
-    fun updateData(items: ArrayList<PlantsDataModel>  ) {
+    fun updateData(items: ArrayList<PlantsDataModel>) {
         this.listPlants.clear()
         this.listPlants.addAll(items)
         notifyDataSetChanged()

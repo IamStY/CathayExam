@@ -20,6 +20,9 @@ import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.viewmodels.MainViewModel
 import testing.steven.cathaytest.vmfactory.ContextFactory
 
+/***********
+ * 主頁面園區列表Fragment
+ */
 class MainFragment : Fragment() {
 
     companion object {
@@ -28,23 +31,24 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         context?.run {
-           initVm(this)
+            initVm(this)
         }
     }
 
     private fun initVm(context: Context) {
         var vmFactory = ContextFactory(context)
-        viewModel = ViewModelProvider(this@MainFragment,vmFactory).get(MainViewModel::class.java)
-        viewModel.centerLiveData.observe(viewLifecycleOwner, {
-            centers->
+        viewModel = ViewModelProvider(this@MainFragment, vmFactory).get(MainViewModel::class.java)
+        viewModel.centerLiveData.observe(viewLifecycleOwner, { centers ->
             injectUI(centers as ArrayList<CenterDataModel>)
 
         })
@@ -54,20 +58,20 @@ class MainFragment : Fragment() {
     }
 
     private fun apiUIState(it: Int?) {
-         if(it==0){
-             rv_center_list.visibility = View.GONE
-             loading.visibility = View.VISIBLE
-         }else if(it == -1){
-             rv_center_list.visibility = View.GONE
-             loading.visibility = View.VISIBLE
-             loading.findViewById<TextView>(R.id.status).text = getString(R.string.no_network)
-             var lottie = loading.findViewById<LottieAnimationView>(R.id.lottie)
-             lottie.setAnimation(R.raw.empty)
-             lottie.playAnimation()
-         }else{
-             rv_center_list.visibility = View.VISIBLE
-             loading.visibility = View.GONE
-         }
+        if (it == 0) {
+            rv_center_list.visibility = View.GONE
+            loading.visibility = View.VISIBLE
+        } else if (it == -1) {
+            rv_center_list.visibility = View.GONE
+            loading.visibility = View.VISIBLE
+            loading.findViewById<TextView>(R.id.status).text = getString(R.string.no_network)
+            var lottie = loading.findViewById<LottieAnimationView>(R.id.lottie)
+            lottie.setAnimation(R.raw.empty)
+            lottie.playAnimation()
+        } else {
+            rv_center_list.visibility = View.VISIBLE
+            loading.visibility = View.GONE
+        }
     }
 
     private fun injectUI(centers: ArrayList<CenterDataModel>) {
@@ -76,8 +80,8 @@ class MainFragment : Fragment() {
 
     private fun recyclerViewLogic(centers: java.util.ArrayList<CenterDataModel>) {
         var adapter = rv_center_list.adapter as CenterAdapter?
-        if(adapter == null){
-            adapter = CenterAdapter(centers,activity)
+        if (adapter == null) {
+            adapter = CenterAdapter(centers, activity)
             adapter.setHasStableIds(true)
             var layoutManager = LinearLayoutManager(activity)
             rv_center_list.adapter = adapter
@@ -87,7 +91,7 @@ class MainFragment : Fragment() {
                 layoutManager.orientation
             )
             rv_center_list.addItemDecoration(dividerItemDecoration)
-        }else{
+        } else {
             adapter.updateData(centers)
         }
     }

@@ -8,7 +8,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import testing.steven.cathaytest.R
 
-open class FullScreenBaseDialogFragment  : DialogFragment() {
+open class FullScreenBaseDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,6 +13,10 @@ import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.exceptions.NoNetwork
 import java.lang.Exception
 
+/***********
+ * 園區相關知識庫
+ * 包含資料庫dao操作
+ */
 class CenterRepository(private val context :Context, private val centerDao : CenterDao){
     var centerLiveData    = centerDao.getCenters()
     val apiStatus: MutableLiveData<Int> by lazy {

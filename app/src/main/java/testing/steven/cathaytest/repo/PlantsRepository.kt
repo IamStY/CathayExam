@@ -15,8 +15,16 @@ import testing.steven.cathaytest.datamodel.PlantsDataModel
 import testing.steven.cathaytest.exceptions.NoNetwork
 import java.lang.Exception
 
-class PlantsRepository(centerDataModel:  CenterDataModel, private val context :Context, private val plantsDao : PlantsDao){
-    var plantsLiveData    = plantsDao.getPlants(centerDataModel.name)
+/***********
+ * 植物相關知識庫
+ * 包含資料庫dao操作
+ */
+class PlantsRepository(
+    centerDataModel: CenterDataModel,
+    private val context: Context,
+    private val plantsDao: PlantsDao
+) {
+    var plantsLiveData = plantsDao.getPlants(centerDataModel.name)
 
     val apiStatus: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
@@ -24,28 +32,30 @@ class PlantsRepository(centerDataModel:  CenterDataModel, private val context :C
     val apiFailure: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-    init{
+
+    init {
         fireFetchServerData()
     }
-    suspend fun insert(datas:ArrayList<PlantsDataModel>){
+
+    suspend fun insert(datas: ArrayList<PlantsDataModel>) {
         plantsDao.insert(datas)
     }
-    private fun fireFetchServerData (){
+
+    private fun fireFetchServerData() {
         apiStatus.value = 1
-        GlobalScope.launch(Dispatchers.IO)  {
-            var dataModel= GlobalScope.async {
+        GlobalScope.launch(Dispatchers.IO) {
+            var dataModel = GlobalScope.async {
                 ApiRequestManager.getPlants(context)
             }
             try {
                 insert(dataModel.await())
                 apiStatus.postValue(0)
-            }catch (e: Exception){
-                if(e is NoNetwork){
+            } catch (e: Exception) {
+                if (e is NoNetwork) {
                     apiStatus.postValue(-1)
                 } //...
             }
         }
-
 
 
     }

@@ -78,9 +78,6 @@ object ApiRequestManager {
             }
         }
 
-          Log.e("jsonArray", jsonArray.toString())
-
-
         var obj = gson.fromJson<T>(jsonArray.toString(), type)
        return obj
     }

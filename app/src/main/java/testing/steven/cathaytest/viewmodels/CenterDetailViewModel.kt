@@ -9,6 +9,9 @@ import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.datamodel.PlantsDataModel
 import testing.steven.cathaytest.viewmodels.bases.APIBasedViewModel
 
+/***********
+ * 園區詳情使用的ViewModel,包含植物列表
+ */
 class CenterDetailViewModel(centerDataModel : CenterDataModel,context : Context, centerDao: PlantsDao ) : APIBasedViewModel<PlantsDataModel>() {
     private val repository: PlantsRepository = PlantsRepository(centerDataModel,context,centerDao)
     val plantsLiveData: LiveData<List<PlantsDataModel>>

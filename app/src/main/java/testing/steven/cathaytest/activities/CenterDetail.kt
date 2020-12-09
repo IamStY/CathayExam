@@ -24,10 +24,12 @@ import testing.steven.cathaytest.viewmodels.CenterDetailViewModel
 import testing.steven.cathaytest.vmfactory.BundleFactory
 import kotlin.math.abs
 
-
+/***********
+ * 園區詳情頁面
+ */
 class CenterDetail : BaseActivity() {
 
-    lateinit var centerDetailViewModel : CenterDetailViewModel
+    lateinit var centerDetailViewModel: CenterDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,8 @@ class CenterDetail : BaseActivity() {
 
         uiInit()
         var vmFactory = BundleFactory(this, intent.extras!!)
-        centerDetailViewModel = ViewModelProvider(this, vmFactory).get(CenterDetailViewModel::class.java)
+        centerDetailViewModel =
+            ViewModelProvider(this, vmFactory).get(CenterDetailViewModel::class.java)
         centerDetailViewModel.centerDetailLiveData.observe(this, { center ->
             injectDataUI(center)
 
@@ -43,23 +46,25 @@ class CenterDetail : BaseActivity() {
         centerDetailViewModel.plantsLiveData.observe(this, { plants ->
             injectDataListUI(plants as ArrayList<PlantsDataModel>)
         })
-        centerDetailViewModel.uiStateLiveData.observe(this,{
+        centerDetailViewModel.uiStateLiveData.observe(this, {
             apiUIState(it)
         })
 
     }
+
     private fun apiUIState(it: Int?) {
-        if(it==0){
+        if (it == 0) {
             rv_center_list.visibility = View.GONE
             loading.visibility = View.VISIBLE
-        }else if(it == -1){
+        } else if (it == -1) {
             rv_center_list.visibility = View.GONE
             loading.visibility = View.VISIBLE
-        }else{
+        } else {
             rv_center_list.visibility = View.VISIBLE
             loading.visibility = View.GONE
         }
     }
+
     private fun uiInit() {
         var drawable = ContextCompat.getDrawable(this, R.drawable.menu)
 
@@ -94,7 +99,7 @@ class CenterDetail : BaseActivity() {
 
     private fun injectDataListUI(plants: ArrayList<PlantsDataModel>) {
 
-                recyclerViewLogic(plants)
+        recyclerViewLogic(plants)
 
     }
 
@@ -126,9 +131,9 @@ class CenterDetail : BaseActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        if(center.memo.isEmpty()){
+        if (center.memo.isEmpty()) {
             memo.text = getString(R.string.app_no_memo)
-        }else{
+        } else {
             memo.text = center.memo
         }
         category.text = center.category

@@ -7,6 +7,9 @@ import testing.steven.cathaytest.R
 import testing.steven.cathaytest.activities.bases.BaseActivity
 import testing.steven.cathaytest.components.MainFragment
 
+/***********
+ *主入口
+ */
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,8 +20,8 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
-                    .commitNow()
+                .replace(R.id.container, MainFragment.newInstance())
+                .commitNow()
         }
     }
 }

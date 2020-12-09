@@ -12,15 +12,22 @@ import testing.steven.cathaytest.api.Statics
 import testing.steven.cathaytest.datamodel.CenterDataModel
 import kotlin.collections.ArrayList
 
-
-class CenterAdapter( var centers : ArrayList<CenterDataModel>, val activity: Activity? ) : RecyclerView.Adapter<CommonRecyclerViewHolder>() {
+/***********
+ * 園區列表
+ */
+class CenterAdapter(var centers: ArrayList<CenterDataModel>, val activity: Activity?) :
+    RecyclerView.Adapter<CommonRecyclerViewHolder>() {
 
     var listCenters = ArrayList<CenterDataModel>()
+
     init {
         this.listCenters.addAll(centers)
     }
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CommonRecyclerViewHolder {
-        return CommonRecyclerViewHolder(LayoutInflater.from(activity).inflate(R.layout.layout_common_adapter_item, p0, false))
+        return CommonRecyclerViewHolder(
+            LayoutInflater.from(activity).inflate(R.layout.layout_common_adapter_item, p0, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -34,22 +41,22 @@ class CenterAdapter( var centers : ArrayList<CenterDataModel>, val activity: Act
     override fun onBindViewHolder(_holder: CommonRecyclerViewHolder, position: Int) {
 
 
-        var centerDataModel =  listCenters[_holder.adapterPosition]
+        var centerDataModel = listCenters[_holder.adapterPosition]
 
 
         _holder.sdv_image.setImageURI(centerDataModel.pictureUrl)
         _holder.title.text = centerDataModel.name
         _holder.longDescription.text = centerDataModel.longDescription
-        if(centerDataModel.memo.isEmpty()){
+        if (centerDataModel.memo.isEmpty()) {
             _holder.restTime.text = activity?.getString(R.string.app_no_memo)
-        }else {
+        } else {
             _holder.restTime.text = centerDataModel.memo
         }
         _holder.root.setOnClickListener {
 
             activity.run {
-                this?.startActivity(  Intent(activity, CenterDetail::class.java).apply {
-                    putExtra(Statics.centerData,centerDataModel)
+                this?.startActivity(Intent(activity, CenterDetail::class.java).apply {
+                    putExtra(Statics.centerData, centerDataModel)
                 })
             }
         }
@@ -57,7 +64,7 @@ class CenterAdapter( var centers : ArrayList<CenterDataModel>, val activity: Act
 
     }
 
-    fun updateData(items: ArrayList<CenterDataModel>  ) {
+    fun updateData(items: ArrayList<CenterDataModel>) {
         this.listCenters.clear()
         this.listCenters.addAll(items)
         notifyDataSetChanged()

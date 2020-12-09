@@ -10,7 +10,10 @@ import testing.steven.cathaytest.api.Statics
 import testing.steven.cathaytest.components.bases.FullScreenBaseDialogFragment
 import testing.steven.cathaytest.datamodel.PlantsDataModel
 
-class PlantDetailFragment : FullScreenBaseDialogFragment()  {
+/***********
+ * 植物詳情頁面
+ */
+class PlantDetailFragment : FullScreenBaseDialogFragment() {
     companion object {
         @JvmStatic
         fun getInstanceTag(): String {
@@ -18,17 +21,9 @@ class PlantDetailFragment : FullScreenBaseDialogFragment()  {
         }
     }
 
-
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         initVm()
         super.onViewCreated(view, savedInstanceState)
-
-
-
     }
 
     override fun onResume() {
@@ -36,8 +31,11 @@ class PlantDetailFragment : FullScreenBaseDialogFragment()  {
     }
 
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.layout_plant_detail, container)
         return view
     }
@@ -49,20 +47,18 @@ class PlantDetailFragment : FullScreenBaseDialogFragment()  {
     }
 
     private fun injectUI(plant: PlantsDataModel) {
-            imgBackground.setImageURI(plant.imageUrl)
-            name_tw.text = plant.name
-            name_en.text = plant.nameEn
-            plants_alsoKnown.text = plant.alsoKnown
-            plant_brief.text = plant.brief
-            plant_feature.text = plant.feature
-            plant_plants_func.text = plant.longDescription
-            plants_updated.text = plants_updated.text.toString()+plant.updatedAt
+        imgBackground.setImageURI(plant.imageUrl)
+        name_tw.text = plant.name
+        name_en.text = plant.nameEn
+        plants_alsoKnown.text = plant.alsoKnown
+        plant_brief.text = plant.brief
+        plant_feature.text = plant.feature
+        plant_plants_func.text = plant.longDescription
+        plants_updated.text = plants_updated.text.toString() + plant.updatedAt
         toolbar.title = plant.name
-            toolbar.setNavigationOnClickListener {
-                dismiss()
-            }
-
-
+        toolbar.setNavigationOnClickListener {
+            dismiss()
+        }
 
 
     }
