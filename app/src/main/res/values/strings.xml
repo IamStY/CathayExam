@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CathayTest</string>
+    <string name="app_no_memo">無休館資訊</string>
+    <string name="main_title">台北市立動物園</string>
+    <string name="loading">首次資料將會讀取較久的時間，請耐心等候</string>
+    <string name="no_network">資料取得失敗</string>
+    <string name="link">在網頁中開啟</string>
+    <string name="browser_issue">無支援瀏覽器</string>
+    <string name="plants_list">植物資料</string>
+    <string name="plant_alias">別名</string>
+    <string name="plants_short">簡介</string>
+    <string name="plants_read">辨認方式</string>
+    <string name="plants_func">功能性</string>
+    <string name="plants_updated">最後更新:</string>
+</resources>
