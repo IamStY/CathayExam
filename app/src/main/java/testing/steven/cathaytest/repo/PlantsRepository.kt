@@ -13,7 +13,6 @@ import testing.steven.cathaytest.dao.PlantsDao
 import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.datamodel.PlantsDataModel
 import testing.steven.cathaytest.exceptions.NoNetwork
-import java.lang.Exception
 
 /***********
  * 植物相關知識庫

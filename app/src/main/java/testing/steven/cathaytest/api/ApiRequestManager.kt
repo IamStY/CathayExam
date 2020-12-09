@@ -72,7 +72,7 @@ object ApiRequestManager {
 
                     }
                     jsonArray.put(jsonObject)
-                }catch (e: java.lang.Exception){
+                }catch (e: Exception){
                     throw  e
                 }
             }

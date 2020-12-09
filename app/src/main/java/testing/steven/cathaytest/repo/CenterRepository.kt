@@ -11,7 +11,6 @@ import testing.steven.cathaytest.api.ApiRequestManager
 import testing.steven.cathaytest.dao.CenterDao
 import testing.steven.cathaytest.datamodel.CenterDataModel
 import testing.steven.cathaytest.exceptions.NoNetwork
-import java.lang.Exception
 
 /***********
  * 園區相關知識庫
