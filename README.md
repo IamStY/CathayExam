@@ -3,7 +3,11 @@
 
 1. 架構 - MVVM + LiveData + RoomDatabase + Repository
 2. 資料落地, 首次儲存後支援離線 , 資料全部拆解後放到Room Db
+
+
  call flow 
+ 
+ 
  Room query -> liveData notify ui-> api request(read file) -> api response(read file)
  -> insert data list -> Room Live Data Notify UI -> data synced
 3. animations and ui enhancements
