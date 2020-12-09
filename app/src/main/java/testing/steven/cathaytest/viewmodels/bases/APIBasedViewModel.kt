@@ -16,7 +16,6 @@ open class APIBasedViewModel<T> : ViewModel() {
         uiStateLiveData=  MediatorLiveData<Int>().apply {
             addSource(liveData){
                     centerLiveData->
-                Log.e("apiStatus",apiStatus.value.toString())
                 value = if(centerLiveData.isEmpty() &&apiStatus.value==1){
                     0
                 }else if(centerLiveData.isEmpty() &&apiStatus.value==-1){
