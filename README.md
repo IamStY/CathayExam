@@ -8,6 +8,7 @@
  Room query -> liveData notify ui-> api request(read file) -> api response(read file)
  -> insert data list -> Room Live Data Notify UI -> data synced
 ---------------------------
+
 3. animations and ui enhancements
 4. coroutine
 5. VMFactory + OOP化 ViewModel
