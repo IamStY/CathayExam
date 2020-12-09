@@ -28,19 +28,9 @@ class CenterRepository(private val context :Context, private val centerDao : Cen
         centerDao.insert(datas)
     }
     fun fireFetchServerData (){
-        apiStatus.value = 1
         GlobalScope.launch(Dispatchers.IO)  {
-            var dataModel= GlobalScope.async {
-                ApiRequestManager.getServerCenters(context)
-            }
-            try {
-                insert(dataModel.await())
-                apiStatus.postValue(0)
-            }catch (e:Exception){
-                if(e is NoNetwork){
-                    apiStatus.postValue(-1)
-                } //...
-            }
+              var dataModel=  ApiRequestManager.getServerCenters(apiStatus,context)
+                insert(dataModel)
         }
 
     }

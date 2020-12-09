@@ -41,21 +41,9 @@ class PlantsRepository(
     }
 
     private fun fireFetchServerData() {
-        apiStatus.value = 1
-        GlobalScope.launch(Dispatchers.IO) {
-            var dataModel = GlobalScope.async {
-                ApiRequestManager.getPlants(context)
-            }
-            try {
-                insert(dataModel.await())
-                apiStatus.postValue(0)
-            } catch (e: Exception) {
-                if (e is NoNetwork) {
-                    apiStatus.postValue(-1)
-                } //...
-            }
+        GlobalScope.launch(Dispatchers.IO)  {
+            var dataModel=  ApiRequestManager.getPlants(apiStatus,context)
+            insert(dataModel)
         }
-
-
     }
 }

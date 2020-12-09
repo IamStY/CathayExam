@@ -2,6 +2,8 @@ package testing.steven.cathaytest.api
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -21,11 +23,12 @@ object ApiRequestManager {
 
     val gson = Gson()
       fun <T> sendRequest(
+          apiStatus :MutableLiveData<Int>,
           type: Type,
           context: Context?,
           url: String
       )  : T{
-
+          apiStatus.postValue(1)
         var resultList = ArrayList<List<String>>()
         try {
             val connUrl = URL(url)
@@ -50,7 +53,9 @@ object ApiRequestManager {
 
 
         } catch (e: Exception) {
-            throw  NoNetwork()
+            apiStatus.postValue(-1)
+            return ArrayList<T>() as T
+//            throw  NoNetwork()
         }
 
 
@@ -79,22 +84,23 @@ object ApiRequestManager {
         }
 
         var obj = gson.fromJson<T>(jsonArray.toString(), type)
+          apiStatus.postValue(0)
        return obj
     }
 
 
-    suspend fun getServerCenters(
+    fun getServerCenters(apiStatus : MutableLiveData<Int>,
           context: Context
       ) : ArrayList<CenterDataModel> {
         val functionName = Statics.centerPath
-       return  sendRequest(object : TypeToken<ArrayList<CenterDataModel>>() {
+       return  sendRequest(apiStatus,object : TypeToken<ArrayList<CenterDataModel>>() {
        }.type, context, functionName)
     }
-    suspend fun getPlants(
+    fun getPlants(apiStatus : MutableLiveData<Int>,
         context: Context
     ) : ArrayList<PlantsDataModel> {
         val functionName = Statics.plantPath
-        return  sendRequest(object : TypeToken<ArrayList<PlantsDataModel>>() {
+        return  sendRequest(apiStatus,object : TypeToken<ArrayList<PlantsDataModel>>() {
         }.type, context, functionName)
     }
 }
